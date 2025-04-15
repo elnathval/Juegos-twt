@@ -1,0 +1,27 @@
+{
+  "name": "juegos-twt",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elnathval/Juegos-twt.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/elnathval/Juegos-twt/issues"
+  },
+  "homepage": "https://github.com/elnathval/Juegos-twt#readme",
+  "devDependencies": {
+    "electron": "^35.1.5"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.5",
+    "jquery": "^3.7.1"
+  }
+}
