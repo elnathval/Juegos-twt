@@ -4,7 +4,7 @@
 }
 
 html, body {
-	background-color:black;
+	background-color:#5d5050;
 	overflow-x:hidden;
 }
 
@@ -104,7 +104,7 @@ select, option {
 .header {
 	text-align: center;
 	font-family: arial;
-	background-color: #f4511e;
+	background-color: #ffcf27;
 	color: white;
 	padding:15px;
 	width: 200%;

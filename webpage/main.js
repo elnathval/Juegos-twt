@@ -143,12 +143,12 @@
 			dayCounter++;
 		}
 		else if (dayCounter === 1){
-			window.electronAPI.update_day("Día 1");
+			window.electronAPI.update_day("Dia 1");
             simulateDay();
 			dayCounter++;
 		}
 		else {
-            window.electronAPI.update_day(`Día ${dayCounter}`);
+            window.electronAPI.update_day(`Dia ${dayCounter}`);
 			dayClear();
 			simulateDay();
 			dayCounter++;
@@ -227,6 +227,7 @@
 	function simulateDay(){
         var done = [];
 		var fates = [];
+        var playerOrder = [];
 
 		for (var i=0; i<num; i++){
 			if (deathBools[i]){
@@ -253,6 +254,7 @@
 				break;
 			}
 			done[r] = true;
+
 
 			switch (options[rand(options.length)]){
 				case "weapons":
@@ -326,6 +328,7 @@
 						done[r] = false;
 					}
 					else {
+                        
 						var a = playerItems[r][0];
 						var b;
 						if (itemsThatGivePoints.indexOf(a) != -1){
@@ -333,6 +336,7 @@
 						}
 						var aMelee;
 						if (weapons.indexOf(a) != -1 || melee.indexOf(a) != -1){
+
 							if (melee.indexOf(a) != -1){
 								aMelee = a;
 								a = "melee";
@@ -696,6 +700,7 @@
 					break;
 				case "death":
 					var a = variousDeaths[rand(variousDeaths.length)];
+                    
 					console.log("death");
 					console.log(a);
 					var q = liveChampion(r);
@@ -795,22 +800,38 @@
 						xDies(r);
 					}
 			}
+            playerOrder.push(-1);
 		}
 
 		var temp = document.createElement("div");
-		var par = document.createElement("p");
+
+        console.log(playerOrder);
 
 		while (fates.length > 0){
+            while(true){
+                var playertemp = playerOrder.shift();
+                if(playertemp != -1)
+                {
+                    var playertempimg =document.createElement("img");
+                    playertempimg.src = `img/${playertemp}.jpg`;
+                    playertempimg.width = "100";
+                    temp.appendChild(playertempimg);
+                    window.electronAPI.debugMsg(`${playerOrder[0]}`);
+                } else {
+                    break;
+                }
+            }
+            var par = document.createElement("p");
 			par.appendChild(document.createTextNode(fates[0]));
+			par.appendChild(document.createElement("br"));  
 			par.appendChild(document.createElement("br"));
-			par.appendChild(document.createElement("br"));
+            temp.appendChild(par)
 			for (var j=0; j<fates.length-1; j++){
 				fates[j] = fates[j+1];
 			}
 			fates.pop();
 		}
 
-		temp.appendChild(par);
 		day.appendChild(temp);
 		day.style.visibility = "visible";
 		stats.style.visibility = "hidden";
