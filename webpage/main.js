@@ -25,6 +25,8 @@
 	var spnum = sponsor.length;
 	var minum = misc.length;
 
+    var playersAliveCount = 0;
+
 	var pro = [];
 	var playerItems = [];
 	var health = [];
@@ -40,6 +42,8 @@
 		first.style.visibility = "hidden";
 		pressed = false;
 
+        playersAliveCount = num;
+
 		for (var i=0; i<num; i++){
 			var temp = document.createElement("div");
 			var label = document.createElement("label");
@@ -48,6 +52,7 @@
 			field.setAttribute("type","text");
 			field.className = "newNames";
 			label.appendChild(field);
+            //SELECTOR DE GÉNERO - SEGURAMENTE SE DEPRECARÁ
 			var wowselect = document.createElement("select");
 			wowselect.className = "wowselect";
 			var male = document.createElement("option");
@@ -58,8 +63,9 @@
 			female.textContent = "F";
 			wowselect.appendChild(male);
 			wowselect.appendChild(female);
+
 			temp.appendChild(label);
-			temp.appendChild(wowselect);
+			temp.appendChild(wowselect); //SELECTOR DE GÉNERO
 			temp.appendChild(document.createElement("br"));
 			temp.appendChild(document.createElement("br"));
 			//names.insertBefore(temp, names.children[names.children.length-1]);
@@ -132,14 +138,17 @@
 		if (checkForWinner){
 		}
 		else if (dayCounter === 0){
-			cornucopiaNow();
+			window.electronAPI.update_day("Cornucopia");
+            cornucopiaNow();
 			dayCounter++;
 		}
 		else if (dayCounter === 1){
-			simulateDay();
+			window.electronAPI.update_day("Día 1");
+            simulateDay();
 			dayCounter++;
 		}
 		else {
+            window.electronAPI.update_day(`Día ${dayCounter}`);
 			dayClear();
 			simulateDay();
 			dayCounter++;
@@ -175,9 +184,11 @@
 		corn.style.visibility = "hidden";
 		day.style.visibility = "hidden";
 		deaths.style.visibility = "visible";
+
 	}
 
 	function toStats(){
+        window.electronAPI.update_playercount(`${playersAliveCount}`);
 		var wowkills = document.getElementsByClassName("wowkills");
 		var wowhp = document.getElementsByClassName("wowhp");
 		deadHighlight();
@@ -214,7 +225,7 @@
 	}
 
 	function simulateDay(){
-		var done = [];
+        var done = [];
 		var fates = [];
 
 		for (var i=0; i<num; i++){
@@ -960,12 +971,14 @@
 	function xDies(x){
 		deathBools[x] = false;
 		health[x] = 0;
+        playersAliveCount--;
 	}
 
 	function xKillsY(x,y){
 		deathBools[y] = false;
 		kills[x]++;
 		health[y] = 0;
+        playersAliveCount--;
 	}
 
 	function dayClear(){
@@ -1109,8 +1122,3 @@
 	document.getElementById("proceedFive").addEventListener("click", toSummary);
 	document.getElementById("restart").addEventListener("click", clearGames);
 	document.getElementById("same").addEventListener("click", sameTributes);
-
-
-	$(function() {
-    	window.electronAPI.crearArchivo("hola");
-	});

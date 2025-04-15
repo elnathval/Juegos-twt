@@ -18,13 +18,26 @@ app.whenReady().then(() => {
   createWindow()
 })
 
-ipcMain.on('crear-archivo', (event, data) => {
-  const filePath = path.join(__dirname, 'archivo_creado.txt');
+ipcMain.on('update-playercount', (event, data) => {
+  const filePath = path.join(__dirname, 'playercount.txt');
   fs.writeFile(filePath, data, (err) => {
     if (err) {
       console.error('Error al crear archivo:', err);
       return;
     }
-    console.log('Archivo creado con éxito:', filePath);
   });
+});
+
+ipcMain.on('update-day', (event, data) => {
+  const filePath = path.join(__dirname, 'day.txt');
+  fs.writeFile(filePath, data, (err) => {
+    if (err) {
+      console.error('Error al crear archivo:', err);
+      return;
+    }
+  });
+});
+
+ipcMain.on("debug-msg", (event, data) => {
+  console.log(data);
 });
