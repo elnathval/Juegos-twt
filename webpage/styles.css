@@ -32,7 +32,6 @@ select, option {
 }
 
 #background {
-	background-image:url("http://bestscreenwallpaper.pro/wp-content/uploads/2015/11/Logo-The-Hunger-Games-Mockingjay-Part-2.jpg");
 	-webkit-background-size:cover;
 	-moz-background-size:cover;
 	background-size:cover;
@@ -104,7 +103,7 @@ select, option {
 .header {
 	text-align: center;
 	font-family: arial;
-	background-color: #ffcf27;
+	background-color: #50505d;
 	color: white;
 	padding:15px;
 	width: 200%;
@@ -114,7 +113,7 @@ select, option {
 .footer {
 	text-align: center;
 	font-family: arial;
-	background-color: #ffa705;
+	background-color: #50505d;
 	color: white;
 	padding: 15px;
 	width: 100%;
@@ -130,8 +129,8 @@ select, option {
 .button {
 	display: inline-block;
 	float:left;
-	border: solid #f4511e 4px;
-	background-color: #f4511e;
+	border: solid #9e9696  4px;
+	background-color: #9e9696 ;
 	color: #FFFFFF;
 	text-align: center;
 	font-size: 20px;

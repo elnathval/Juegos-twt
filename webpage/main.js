@@ -1,3 +1,4 @@
+	//Sebas se toca el chilito todas las noches ayayay
 	var first = document.getElementById("start");
 	var wow = document.getElementById("double");
 	var press = document.getElementById("button");
@@ -119,6 +120,8 @@
 		}
 		names.style.visibility = "hidden";
 		stats.style.visibility = "visible";
+
+		window.electronAPI.update_playercount(`${playersAliveCount}`);
 	}
 
 	function deadHighlight(){
@@ -185,10 +188,10 @@
 		day.style.visibility = "hidden";
 		deaths.style.visibility = "visible";
 
+		window.electronAPI.update_playercount(`${playersAliveCount}`);
 	}
 
 	function toStats(){
-        window.electronAPI.update_playercount(`${playersAliveCount}`);
 		var wowkills = document.getElementsByClassName("wowkills");
 		var wowhp = document.getElementsByClassName("wowhp");
 		deadHighlight();
@@ -255,7 +258,6 @@
 			}
 			done[r] = true;
 
-
 			switch (options[rand(options.length)]){
 				case "weapons":
 					var w = rand(wnum);
@@ -275,6 +277,7 @@
 						fates[fates.length-1] = allNames[r] + " stumbles upon " + article + " " + melee[w] + ".";
 						playerItems[r][playerItems[r].length-1] = melee[w];
 					}
+					playerOrder.push(r);
 					break;
 				case "items":
 					var a = rand(2);
@@ -298,6 +301,7 @@
 							}
 							fates.push(allNames[r] + " discovers " + article + " " + itemsToFind[q] + " lying on the ground.");
 						}
+						playerOrder.push(r);
 						break;
 					}
 					else if (a === 1){
@@ -321,6 +325,7 @@
 						else {
 							fates[fates.length-1] += ".";
 						}
+						playerOrder.push(r);
 						break;
 					}
 				case "use":
@@ -328,7 +333,7 @@
 						done[r] = false;
 					}
 					else {
-                        
+						playerOrder.push(r);
 						var a = playerItems[r][0];
 						var b;
 						if (itemsThatGivePoints.indexOf(a) != -1){
@@ -349,6 +354,7 @@
 								xKillsY(r,q);
 								done[q] = true;
 								summary.push(fates[fates.length-1]);
+								playerOrder.push(q);
 							}
 							else if (a === "melee" && fate === 1){
 								injureTwo(r,q);
@@ -356,9 +362,11 @@
 									done[q] = true;
 									fates.push(allNames[r] + " " + b + " " + allNames[q] + " with a " + aMelee + ".");
 									summary.push(fates[fates.length-1]);
+									playerOrder.push(q);
 								}
 								else {
 									fates.push(allNames[r] + " almost whacks " + allNames[q] + " to death with a " + aMelee + ".");
+									playerOrder.push(q);
 								}
 							}
 							else if (b === "random mine" || fate === 0){
@@ -373,11 +381,14 @@
 											done[q] = true;
 											done[s] = true;
 											kills[r] += 2;
+											playerOrder.push(q);
+											playerOrder.push(s);
 										}
 										else {
 											fates.push(allNames[r] + " sets off a landmine that kills " + allNames[q] + ".");
 											xKillsY(r,q);
 											done[q] = true;
+											playerOrder.push(q);
 										}
 									}
 									else {
@@ -389,21 +400,25 @@
 									fates.push(allNames[r] + " decapitates " + allNames[q] + " with a frisbee.");
 									xKillsY(r,q);
 									done[q] = true;
+									playerOrder.push(q);
 								}
 								else if (a === "octobrush"){
 									fates.push(allNames[r] + " splats " + allNames[q] + " with an octobrush.");
 									xKillsY(r,q);
 									done[q] = true;
+									playerOrder.push(q);
 								}
 								else if (a === "paintball"){
 									fates.push(allNames[r] + " " + b + " " + allNames[q] + " dies of needing paintballs.");
 									xKillsY(r,q);
 									done[q] = true;
+									playerOrder.push(q);
 								}
 								else {
 									fates.push(allNames[r] + " " + b + " " + allNames[q] + ".");
 									xKillsY(r,q);
 									done[q] = true;
+									playerOrder.push(q);
 								}
 								summary.push(fates[fates.length-1]);
 							}
@@ -411,6 +426,7 @@
 								var q = liveChampion(r);
 								if (a === "frisbee"){
 									injureTwo(r,q);
+									playerOrder.push(q);
 									if (!deathBools[q]){
 										fates.push(allNames[r] + " fatally breaks " + allNames[q] + "\'s nose with a frisbee.");
 										done[q] = true;
@@ -422,6 +438,7 @@
 								}
 								else if (a === "tank"){
 									injureTwo(r,q);
+									playerOrder.push(q);
 									if (!deathBools[q]){
 										fates.push(allNames[r] + " runs over " + allNames[q] + " with " + proPos[r] + " tank, causing the death of " + allNames[q] + ".");
 										done[q] = true;
@@ -433,6 +450,7 @@
 								}
 								else {
 									injureTwo(r,q);
+									playerOrder.push(q);
 									if (!deathBools[q]){
 										fates.push(allNames[r] + " " + b);
 										done[q] = true;
@@ -467,9 +485,11 @@
 								xKillsY(r,q);
 								done[q] = true;
 								summary.push(fates[fates.length-1]);
+								playerOrder.push(q);
 							}
 							else {
 								fates.push(allNames[r] + "\'s indescribable object sits there uselessly, so " + allNames[r] + " pollutes the ocean with it.");
+								playerOrder.push(q);
 							}
 						}
 						else if (a === "chocolate-covered cotton"){
@@ -489,10 +509,12 @@
 							done[q] = true;
 							summary.push(fates[fates.length-1]);
 							xKillsY(r,q);
+							playerOrder.push(q);
 						}
 						else if (a === "freeze ray"){
 							var q = liveChampion(r);
 							injureTwo(r,q);
+							playerOrder.push(q);
 							if (!deathBools[q]){
 								fates.push(allNames[q] + " contracts hypothermia after being shot by " + allNames[r] + "\'s freeze ray and freezes to death.");
 								done[q] = true;
@@ -557,6 +579,7 @@
 								fates.push(allNames[r] + " and " + allNames[q] + " practice safe dating.");
 								health[r]++;
 								health[q]++;
+								playerOrder.push(q);
 							}
 							else {
 								fates.push(allNames[r] + " " + y + ".");
@@ -567,6 +590,7 @@
 					break;
 				case "shelter":
 					console.log("shelter");
+					playerOrder.push(r);
 					var a = shelter[rand(shelter.length)];
 					var b = rand(2);
 					fates.push(allNames[r] + " finds a convenient " + a);
@@ -583,6 +607,7 @@
 				case "misc":
 					var a = misc[rand(minum)];
 					var q = liveChampion(r);
+					playerOrder.push(r);
 					if (a === "cries"){
 						fates.push(allNames[r] + " cries " + pro[r] + "self to sleep.");
 					}
@@ -591,6 +616,7 @@
 					}
 					else if (a === "hides from"){
 						fates.push(allNames[r] + " hides from " + allNames[q]);
+						playerOrder.push(q);
 					}
 					else if (a === "eats"){
 						if (deathBools.indexOf(false) === -1){
@@ -607,13 +633,16 @@
 								}
 							}
 							fates.push(allNames[r] + " eats " + allNames[d] + "\'s dead body.");
+							playerOrder.push(d);
 						}
 					}
 					else if (a === "talks to"){
 						fates.push(allNames[r] + " talks to " + allNames[q] + ".");
+						playerOrder.push(q);
 					}
 					else if (a === "drops a rant against"){
 						fates.push(allNames[r] + " drops a rant about " + allNames[q] + ".");
+						playerOrder.push(q);
 					}
 					else if (a === "logs"){
 						fates.push(allNames[r] + " places " + proPos[r] + " head between two inconspicuous suspended logs.");
@@ -638,10 +667,12 @@
 					}
 					break;
 				case "injury":
+					playerOrder.push(r);
 					var a = injury[rand(injury.length)];
 					if (a === "triggered"){
 						var q = liveChampion(r);
 						injureTwo(q,r);
+						playerOrder.push(q);
 						fates.push(allNames[q] + " triggers " + allNames[r]);
 						if (!deathBools[r]){
 							fates[fates.length-1] += " to death.";
@@ -654,6 +685,7 @@
 					else if (a === "battles and wounds"){
 						var q = liveChampion(r);
 						injureTwo(r,q);
+						playerOrder.push(q);
 						if (!deathBools[q]){
 							fates.push(allNames[r] + " battles and kills " + allNames[q] + ".");
 							summary.push(fates[fates.length-1]);
@@ -665,6 +697,7 @@
 					else if (a === "prank calls"){
 						var q = liveChampion(r);
 						injureTwo(r,q);
+						playerOrder.push(q);
 						if (!deathBools[q]){
 							fates.push(allNames[r] + " fatally prank calls " + allNames[q] + ".");
 							summary.push(fates[fates.length-1]);
@@ -688,6 +721,7 @@
 					if (health[r] === 1){
 						health[r]++;
 						fates.push(allNames[r] + " heals " + pro[r] + "self.");
+						playerOrder.push(r);
 					}
 					else if (health.indexOf(1) === -1){
 						done[r] = false;
@@ -696,11 +730,13 @@
 						q = liveChampion(r);
 						health[q] = 2;
 						fates.push(allNames[r] + " heals " + allNames[q] + ".");
+						playerOrder.push(r);
+						playerOrder.push(q);
 					}
 					break;
 				case "death":
 					var a = variousDeaths[rand(variousDeaths.length)];
-                    
+                    playerOrder.push(r);
 					console.log("death");
 					console.log(a);
 					var q = liveChampion(r);
@@ -709,15 +745,18 @@
 						summary.push(fates[fates.length-1]);
 						done[q] = true;
 						xKillsY(r,q);
+						playerOrder.push(q);
 					}
 					else if (a === "gets burned to death from"){
 						fates.push(allNames[r] + " gets burned to death from " + allNames[q] + "\'s mixtape.");
 						summary.push(fates[fates.length-1]);
 						xKillsY(q,r);
+						playerOrder.push(q);
 					}
 					else if (a === "hangs"){
 						fates.push(allNames[r] + " hangs " + pro[r] + "self after being friendzoned by " + allNames[q] + ".");
 						summary.push(fates[fates.length-1]);
+						playerOrder.push(q);
 						xDies(r);
 					}
 					else if (a === "yells \"woag wiag wiag\" at"){
@@ -725,6 +764,7 @@
 						summary.push(fates[fates.length-1]);
 						done[q] = true;
 						xKillsY(r,q);
+						playerOrder.push(q);
 					}
 					else if (a === "chokes on crabapples in cheeks"){
 						fates.push(allNames[r] + " chokes on crabapples in " + proPos[r] + " cheeks.");
@@ -733,11 +773,13 @@
 					}
 					else if (a === "navy seals"){
 						fates.push(allNames[r] + " calls in the US Navy SEALS, who kill " + allNames[q]);
+						playerOrder.push(q);
 						s = liveChampion(r);
 						if (s != q){
 							fates[fates.length-1] += " and " + allNames[s];
 							done[s] = true;
 							xKillsY(r,s);
+							playerOrder.push(s);
 							summary.push(fates[fates.length-1]);
 						}
 						else {
@@ -781,7 +823,9 @@
 							summary.push(fates[fates.length-1]);
 							health[r] = 0;
 							health[q] = 0;
+							playersAliveCount -= 2;
 						}
+						playerOrder.push(q);
 					}
 					else if (doubleDeath.indexOf(a) != -1){
 						if (a === "gets nuked from orbit by" || a === "gets memed to death by" || a === "succumbs to lethal peer pressure from"){
@@ -793,6 +837,7 @@
 						summary.push(fates[fates.length-1]);
 						done[q] = true;
 						xKillsY(r,q);
+						playerOrder.push(q);
 					}
 					else {
 						fates.push(allNames[r] + " " + a + ".");
@@ -800,12 +845,15 @@
 						xDies(r);
 					}
 			}
-            playerOrder.push(-1);
+			if(playerOrder[playerOrder.length - 1] != -1 && playerOrder.length != 0){
+				playerOrder.push(-1);
+			}
 		}
 
 		var temp = document.createElement("div");
 
         console.log(playerOrder);
+		console.log(fates);
 
 		while (fates.length > 0){
             while(true){
@@ -816,20 +864,15 @@
                     playertempimg.src = `img/${playertemp}.jpg`;
                     playertempimg.width = "100";
                     temp.appendChild(playertempimg);
-                    window.electronAPI.debugMsg(`${playerOrder[0]}`);
                 } else {
                     break;
                 }
             }
             var par = document.createElement("p");
-			par.appendChild(document.createTextNode(fates[0]));
+			par.appendChild(document.createTextNode(fates.shift()));
 			par.appendChild(document.createElement("br"));  
 			par.appendChild(document.createElement("br"));
-            temp.appendChild(par)
-			for (var j=0; j<fates.length-1; j++){
-				fates[j] = fates[j+1];
-			}
-			fates.pop();
+            temp.appendChild(par);
 		}
 
 		day.appendChild(temp);
@@ -840,6 +883,7 @@
 	function cornucopiaNow(){
 		var done = [];
 		var fates = [];
+		var playerOrder = [];
 		var notDone = 0;
 
 		for (var i=0; i<num; i++){
@@ -867,6 +911,7 @@
 			switch(cornucopia[rand(cnum)]){
 				case "run":
 					fates.push(allNames[r] + " runs away from the Cornucopia.");
+					playerOrder.push(r);
 					break;
 				case "supply":
 					var z = rand(inum);
@@ -876,6 +921,7 @@
 					}
 					fates.push(allNames[r] + " finds " + article + " " + itemsToFind[z] + " in the Cornucopia.");
 					playerItems[r].push(itemsToFind[z]);
+					playerOrder.push(r);
 					break;
 				case "weapon":
 					var z = rand(wnum);
@@ -890,10 +936,12 @@
 						fates[fates.length-1] = allNames[r] + " finds a " + melee[z] + " in the Cornucopia.";
 						playerItems[r][playerItems[r].length-1] = melee[z];
 					}
+					playerOrder.push(r);
 					break;
 				case "battle":
 					if (notDone === 0){
 						fates.push(allNames[r] + " runs away from the Cornucopia.");
+						playerOrder.push(r);
 						break;
 					}
 					else {
@@ -917,24 +965,39 @@
 							xKillsY(q,r);
 							summary.push(ult);
 						}
+						playerOrder.push(r);
+						playerOrder.push(q);
 						done[q] = true;
 						notDone--;
 						fates.push(ult);
 						break;
 					}
 			}
+			playerOrder.push(-1);
 		}
 
 		var temp = document.createElement("div");
-		var p = document.createElement("p");
 
-		for (var i=fates.length-1; i>=0; i--){
-			p.appendChild(document.createTextNode(fates.pop()));
-			p.appendChild(document.createElement("br"));
-			p.appendChild(document.createElement("br"));
+		while (fates.length > 0){
+            while(true){
+                var playertemp = playerOrder.shift();
+                if(playertemp != -1)
+                {
+                    var playertempimg =document.createElement("img");
+                    playertempimg.src = `img/${playertemp}.jpg`;
+                    playertempimg.width = "100";
+                    temp.appendChild(playertempimg);
+                } else {
+                    break;
+                }
+            }
+            var par = document.createElement("p");
+			par.appendChild(document.createTextNode(fates.shift()));
+			par.appendChild(document.createElement("br"));  
+			par.appendChild(document.createElement("br"));
+            temp.appendChild(par);
 		}
 
-		temp.appendChild(p);
 		corn.appendChild(temp);
 		stats.style.visibility = "hidden";
 		corn.style.visibility = "visible";
@@ -951,6 +1014,7 @@
 		else {
 			health[x] = 0;
 			deathBools[x] = false;
+			playersAliveCount--;
 		}
 	}
 
@@ -962,6 +1026,7 @@
 			health[y] = 0;
 			deathBools[y] = false;
 			kills[x]++;
+			playersAliveCount--;
 		}
 	}
 
@@ -1040,6 +1105,9 @@
 			}
 			winner.style.visibility = "visible";
 			stats.style.visibility = "hidden";
+
+			window.electronAPI.update_playercount("1");
+			window.electronAPI.update_day("Fin del juego");
 			return true;
 		}
 		else {
