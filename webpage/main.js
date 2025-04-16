@@ -66,7 +66,7 @@
 			wowselect.appendChild(female);
 
 			temp.appendChild(label);
-			temp.appendChild(wowselect); //SELECTOR DE GÉNERO
+			//temp.appendChild(wowselect); //SELECTOR DE GÉNERO
 			temp.appendChild(document.createElement("br"));
 			temp.appendChild(document.createElement("br"));
 			//names.insertBefore(temp, names.children[names.children.length-1]);
@@ -83,13 +83,14 @@
 
 		for (var i=0; i<num; i++){
 			allNames.push(fields[i].value);
-			pro.push(wowselect[i].value);
-			if (wowselect[i].value === "him"){
+			pro.push("him");
+			/*if (wowselect[i].value === "him"){
 				proPos.push("his");
 			}
 			else {
 				proPos.push(wowselect[i].value);
-			}
+			}*/
+			proPos.push("his");
 			deathBools.push(true);
 			alreadyDead.push(true);
 			health.push(2);
@@ -113,6 +114,11 @@
 			spanThree.appendChild(document.createTextNode("Healthy"));
 			spanThree.className = "wowhp";
 			p.appendChild(spanThree);
+			var playertempimg =document.createElement("img");
+            playertempimg.src = `img/${i}.jpg`;
+            playertempimg.width = "100";
+			playertempimg.className = "playerimg";
+            temp.appendChild(playertempimg);
 			temp.appendChild(p);
 			temp.id = allNames[i];
 			temp.className = "champion";
@@ -137,11 +143,11 @@
 
 	function proceedToDay(){
 		var checkForWinner = declareWinner();
-		document.getElementById("dayNum").textContent = "Day " + dayCounter;
+		document.getElementById("dayNum").textContent = "Día " + dayCounter;
 		if (checkForWinner){
 		}
 		else if (dayCounter === 0){
-			window.electronAPI.update_day("Cornucopia");
+			window.electronAPI.update_day("Baño de sangre");
             cornucopiaNow();
 			dayCounter++;
 		}
@@ -171,19 +177,21 @@
                 playertempimg.width = "100";
                 temp.appendChild(playertempimg);
 				if (kills[i] === 1){
-					p.appendChild(document.createTextNode(allNames[i] + ": 1 Kill"));
+					p.appendChild(document.createTextNode(allNames[i] + ": 1 muerte"));
 				}
 				else {
-					p.appendChild(document.createTextNode(allNames[i] + ": " + kills[i] + " Kills"));
+					p.appendChild(document.createTextNode(allNames[i] + ": " + kills[i] + " muertes"));
 				}
 				p.appendChild(document.createElement("br"));
 				alreadyDead[i] = false;
 			}
 		}
 
-		cannon.textContent = deathCounter + " cannon shots can be heard in the distance";
+		cannon.textContent = deathCounter + " disparos de cañón se escuchan desde la distancia";
 		if (deathCounter === 1){
-			cannon.textContent = "1 cannon shot can be heard in the distance";
+			cannon.textContent = "1 disparo de cañón se escucha desde la distancia";
+		} else if (deathCounter === 0){
+			cannon.textContent = "Ningún disparo de cañón se escucha desde la distancia";
 		}
 
 		temp.appendChild(p);
@@ -198,31 +206,33 @@
 	function toStats(){
 		var wowkills = document.getElementsByClassName("wowkills");
 		var wowhp = document.getElementsByClassName("wowhp");
+		var playerimgs = document.getElementsByClassName("playerimg");
 		deadHighlight();
 		for (var i=0; i<kills.length; i++){
 			if (kills[i] === 1){
-				wowkills[i].textContent = "1 Kill";
+				wowkills[i].textContent = "1 muerte";
 			}
 			else {
-				wowkills[i].textContent = kills[i] + " Kills";
+				wowkills[i].textContent = kills[i] + " muertes";
 			}
 			var healthmsg = "";
 			switch(health[i]){
 				case 0: 
-					healthmsg = "Deceased";
+					healthmsg = "Muerto";
+					playerimgs[i].classList.add("dead");
 					break;
 				case 1: 
-					healthmsg = "Injured";
+					healthmsg = "Lesionado";
 					break;
 				case 2: 
-					healthmsg = "Healthy";
+					healthmsg = "Sano";
 					break;
 				case 3:
-					healthmsg = "Supercharged";
+					healthmsg = "Supersano";
 					break;
 				default:
-					if(health[i] < 0) healthmsg = "Very Deceased (This is a bug, please tell us if you see this)";
-					else healthmsg = "Superdupercharged";
+					if(health[i] < 0) healthmsg = "Muy muerto (Esto es un bug)";
+					else healthmsg = "Superdupersano";
 			}
 			wowhp[i].textContent = healthmsg;
 		}
@@ -270,7 +280,7 @@
 					if (f === 'a' || f === 'e' || f === 'i' || f === 'o'){
 						article += "n";
 					}
-					fates.push(allNames[r] + " stumbles upon " + article + " " + weapons[w] + ".");
+					fates.push(allNames[r] + " se encuenta con " + article + " " + weapons[w] + ".");
 					playerItems[r].push(weapons[w]);
 					if (weapons[w] === "melee"){
 						w = rand(mnum);
@@ -278,7 +288,7 @@
 						if (f === 'a' || f === 'e' || f === 'i' || f === 'o'){
 							article += "n";
 						}
-						fates[fates.length-1] = allNames[r] + " stumbles upon " + article + " " + melee[w] + ".";
+						fates[fates.length-1] = allNames[r] + " se encuenta con " + article + " " + melee[w] + ".";
 						playerItems[r][playerItems[r].length-1] = melee[w];
 					}
 					playerOrder.push(r);
@@ -291,19 +301,19 @@
 						var f = itemsToFind[q].charAt(0);
 						var article = "a";
 						if (itemsToFind[q] === "Lapras"){
-							fates.push("A wild Lapras has appeared. " + allNames[r] + " has caught it!");
+							fates.push("Un Lapras salvaje aparece. ¡" + allNames[r] + " lo ha atrapado!");
 						}
 						else if (itemsToFind[q] === "Stalin mustache"){
-							fates.push(allNames[r] + " has grown a Stalin mustache.");
+							fates.push(allNames[r] + " se ha hecho un bigote estilo Stalin.");
 						}
 						else if (itemsToFind[q] === "one spaghetti"){
-							fates.push(allNames[r] + " discovers a singular spaghetti lying on the ground.");	
+							fates.push(allNames[r] + " descubre un solo espagueti en el suelo.");	
 						}
 						else {
 							if (f === 'a' || f === 'e' || f === 'i' || f === 'o'){
 								article += "n";
 							}
-							fates.push(allNames[r] + " discovers " + article + " " + itemsToFind[q] + " lying on the ground.");
+							fates.push(allNames[r] + " encuentra " + article + " " + itemsToFind[q] + " por el suelo.");
 						}
 						playerOrder.push(r);
 						break;
@@ -316,14 +326,14 @@
 							article += "n";
 						}
 						if (sponsor[q] === "one spaghetti"){
-							fates.push(allNames[r] + " receives a singular spaghetti from a sponsor");	
+							fates.push(allNames[r] + " recibe un solo espagueti de un patrocinador.");	
 						}
 						else {
-							fates.push(allNames[r] + " receives " + article + " " + sponsor[q] + " from a sponsor");
+							fates.push(allNames[r] + " recibe " + article + " " + sponsor[q] + " de un patrocinador");
 						}
 						playerItems[r].push(sponsor[q]);
 						if (sponsor[q] === "empty box"){
-							fates[fates.length-1] += ", because apparently the sponsor is a dick.";
+							fates[fates.length-1] += ", porque aparentemente el patrocinador es gilipollas.";
 							playerItems[r].pop();
 						}
 						else {
@@ -354,7 +364,7 @@
 							var q = liveChampion(r);
 							var fate = rand(2);
 							if (a === "melee" && fate === 0){
-								fates.push(allNames[r] + " " + b + " " + allNames[q] + " with a " + aMelee + ".");
+								fates.push(allNames[r] + " " + b + " " + allNames[q] + " con un " + aMelee + ".");
 								xKillsY(r,q);
 								done[q] = true;
 								summary.push(fates[fates.length-1]);
@@ -364,12 +374,12 @@
 								injureTwo(r,q);
 								if (!deathBools[q]){
 									done[q] = true;
-									fates.push(allNames[r] + " " + b + " " + allNames[q] + " with a " + aMelee + ".");
+									fates.push(allNames[r] + " " + b + " " + allNames[q] + " con un " + aMelee + ".");
 									summary.push(fates[fates.length-1]);
 									playerOrder.push(q);
 								}
 								else {
-									fates.push(allNames[r] + " almost whacks " + allNames[q] + " to death with a " + aMelee + ".");
+									fates.push(allNames[r] + " casi mata a " + allNames[q] + " con un " + aMelee + ".");
 									playerOrder.push(q);
 								}
 							}
@@ -379,7 +389,7 @@
 									if (c === 0){
 										var s = liveChampion(r);
 										if (s != q){
-											fates.push(allNames[r] + " sets off a landmine that kills " + allNames[q] + " and " + allNames[s] + ".");
+											fates.push(allNames[r] + " pone una mina que mata a " + allNames[q] + " y " + allNames[s] + ".");
 											deathBools[q] = false;
 											deathBools[s] = false;
 											done[q] = true;
@@ -389,31 +399,31 @@
 											playerOrder.push(s);
 										}
 										else {
-											fates.push(allNames[r] + " sets off a landmine that kills " + allNames[q] + ".");
+											fates.push(allNames[r] + " pone una mina que mata a " + allNames[q] + ".");
 											xKillsY(r,q);
 											done[q] = true;
 											playerOrder.push(q);
 										}
 									}
 									else {
-										fates.push(allNames[r] + " accidentally steps on " + proPos[r] + " own landmine.");
+										fates.push(allNames[r] + " activa su propia mina y muere.");
 										xDies(r);
 									}
 								}
 								else if (a === "frisbee"){
-									fates.push(allNames[r] + " decapitates " + allNames[q] + " with a frisbee.");
+									fates.push(allNames[r] + " decapita a " + allNames[q] + " con un frisbee.");
 									xKillsY(r,q);
 									done[q] = true;
 									playerOrder.push(q);
 								}
 								else if (a === "octobrush"){
-									fates.push(allNames[r] + " splats " + allNames[q] + " with an octobrush.");
+									fates.push(allNames[r] + " splatea a " + allNames[q] + " con un octobrush.");
 									xKillsY(r,q);
 									done[q] = true;
 									playerOrder.push(q);
 								}
 								else if (a === "paintball"){
-									fates.push(allNames[r] + " " + b + " " + allNames[q] + " dies of needing paintballs.");
+									fates.push(allNames[r] + " " + b + " " + allNames[q] + " muere por falta de paintballs.");
 									xKillsY(r,q);
 									done[q] = true;
 									playerOrder.push(q);
@@ -432,24 +442,24 @@
 									injureTwo(r,q);
 									playerOrder.push(q);
 									if (!deathBools[q]){
-										fates.push(allNames[r] + " fatally breaks " + allNames[q] + "\'s nose with a frisbee.");
+										fates.push(allNames[r] + " le rompe la nariz a " + allNames[q] + " con un frisbee y muere.");
 										done[q] = true;
 										summary.push(fates[fates.length-1]);
 									}
 									else {
-										fates.push(allNames[r] + " breaks " + allNames[q] + "\'s nose with a frisbee.");
+										fates.push(allNames[r] + " le rompe la nariz a " + allNames[q] + " con un frisbee.");
 									}
 								}
 								else if (a === "tank"){
 									injureTwo(r,q);
 									playerOrder.push(q);
 									if (!deathBools[q]){
-										fates.push(allNames[r] + " runs over " + allNames[q] + " with " + proPos[r] + " tank, causing the death of " + allNames[q] + ".");
+										fates.push(allNames[r] + " atropella a " + allNames[q] + " con su tanque, causando su muerte.");
 										done[q] = true;
 										summary.push(fates[fates.length-1]);
 									}
 									else {
-										fates.push(allNames[r] + " runs over " + allNames[q] + " with " + proPos[r] + " tank, but " + allNames[q] + " survives due to " + proPos[q] + " belief in the Flying Spaghetti Monster.");
+										fates.push(allNames[r] + " atropella a " + allNames[q] + " con su tanque, pero sobrevive gracias a su creencia en el Monstruo Espagueti Volador.");
 									}
 								}
 								else {
@@ -1134,7 +1144,7 @@
 		var h = document.createElement("h3");
 		var ach = document.createElement("p");
 		h.appendChild(document.createTextNode(allNames[deathBools.indexOf(true)] + " is the champion!"));
-		if ( kills[deathBools.indexOf(true)] === 0){
+		/*if ( kills[deathBools.indexOf(true)] === 0){
 			ach.appendChild(document.createElement("br"));
 			ach.appendChild(document.createTextNode("Achievement Get: Pacifist Run!"));
 		}
@@ -1150,10 +1160,10 @@
 			ach.appendChild(document.createElement("br"));
 			ach.appendChild(document.createTextNode("Achievement Get: Hoarder!"));
 		}
+		ach.appendChild(document.createElement("br"));
+		ach.appendChild(document.createTextNode("Achievement Get: Tester!"));*/
 		ach.style.fontSize = "large";
 		ach.style.fontWeight = "bold";
-		ach.appendChild(document.createElement("br"));
-		ach.appendChild(document.createTextNode("Achievement Get: Tester!"));
 		temp.appendChild(p);
 		temp.appendChild(h);
 		temp.appendChild(ach);
@@ -1217,5 +1227,5 @@
 	document.getElementById("proceedThree").addEventListener("click",toDeaths);
 	document.getElementById("proceedFour").addEventListener("click",toStats);
 	document.getElementById("proceedFive").addEventListener("click", toSummary);
-	document.getElementById("restart").addEventListener("click", clearGames);
-	document.getElementById("same").addEventListener("click", sameTributes);
+	//document.getElementById("restart").addEventListener("click", clearGames);
+	//document.getElementById("same").addEventListener("click", sameTributes);
