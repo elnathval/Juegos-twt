@@ -166,6 +166,10 @@
 		for (var i=0; i<deathBools.length; i++){
 			if (!deathBools[i] && alreadyDead[i]){
 				deathCounter++;
+				var playertempimg =document.createElement("img");
+                playertempimg.src = `img/${i}.jpg`;
+                playertempimg.width = "100";
+                temp.appendChild(playertempimg);
 				if (kills[i] === 1){
 					p.appendChild(document.createTextNode(allNames[i] + ": 1 Kill"));
 				}
@@ -948,20 +952,20 @@
 						var q = liveChampion(r);
 						var enemy = allNames[q];
 						var fate = rand(4);
-						var ult = allNames[r] + " battles " + enemy + ". ";
+						var ult = allNames[r] + " lucha contra " + enemy + ". ";
 						if (fate === 0){
-							ult += allNames[r] + " defeats " + enemy + ", but decides to spare " + proPos[q] + " life.";
+							ult += allNames[r] + " gana a " + enemy + ", pero decide perdonarle la vida.";
 						}
 						else if (fate === 1){
-							ult += allNames[r] + " defeats and kills " + enemy + ".";
+							ult += allNames[r] + " gana y mata a " + enemy + ".";
 							xKillsY(r,q);
 							summary.push(ult);
 						}
 						else if (fate === 2){
-							ult += enemy + " defeats " + allNames[r] + ", but decides to spare " + proPos[r] + " life.";
+							ult += enemy + " gana a " + allNames[r] + ", pero decide perdonarle la vida.";
 						}
 						else if (fate === 3){
-							ult += enemy + " defeats and kills " + allNames[r] + ".";
+							ult += enemy + " gana y mata a " + allNames[r] + ".";
 							xKillsY(q,r);
 							summary.push(ult);
 						}
@@ -1096,6 +1100,10 @@
 		}
 
 		if (count === 1){
+			var playertempimg =document.createElement("img");
+            playertempimg.src = `img/${deathBools.indexOf(true)}.jpg`;
+            playertempimg.width = "150";
+			document.getElementById("winner-img").appendChild(playertempimg);
 			document.getElementById("declare").innerHTML = "<strong>" + allNames[deathBools.indexOf(true)] + "</strong>";
 			if (kills[deathBools.indexOf(true)] === 1){
 				document.getElementById("champKills").textContent = kills[deathBools.indexOf(true)] + " Kill";

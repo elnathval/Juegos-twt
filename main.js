@@ -8,7 +8,8 @@ const createWindow = () => {
     height: 600,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js') // clave para usar ipcRenderer de forma segura
-    }
+    },
+    autoHideMenuBar: true
   })
 
   win.loadFile('webpage/index.html')
