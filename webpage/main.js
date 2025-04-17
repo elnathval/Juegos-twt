@@ -101,18 +101,18 @@
 			var p = document.createElement("p");
 			p.appendChild(document.createTextNode(allNames[i] + " ("));
 			var span = document.createElement("span");
-			span.appendChild(document.createTextNode("Alive"));
+			span.appendChild(document.createTextNode("Vivo"));
 			span.style.color = "lime";
 			span.className = "wowdead";
 			p.appendChild(span);
 			p.appendChild(document.createTextNode("): "));
 			var spanTwo = document.createElement("span");
-			spanTwo.appendChild(document.createTextNode("0 Kills"));
+			spanTwo.appendChild(document.createTextNode("0 Asesinatos"));
 			spanTwo.className = "wowkills";
 			p.appendChild(spanTwo);
 			p.appendChild(document.createTextNode("; "));
 			var spanThree = document.createElement("span");
-			spanThree.appendChild(document.createTextNode("Healthy"));
+			spanThree.appendChild(document.createTextNode("Sano"));
 			spanThree.className = "wowhp";
 			p.appendChild(spanThree);
 			var playertempimg =document.createElement("img");
@@ -136,7 +136,7 @@
 
 		for (var i=0; i<num; i++){
 			if (!deathBools[i]){
-				spans[i].textContent = "Dead";
+				spans[i].textContent = "Muerto";
 				spans[i].style.color = "red";
 			}
 		}
@@ -285,7 +285,7 @@
 					if (f === 'a' || f === 'e' || f === 'i' || f === 'o'){
 						article += "n";
 					}
-					fates.push(allNames[r] + " se encuenta con " + article + " " + weapons[w] + ".");
+					fates.push(allNames[r] + " se encuenta con " + weapons[w] + ".");
 					playerItems[r].push(weapons[w]);
 					if (weapons[w] === "melee"){
 						w = rand(mnum);
@@ -293,7 +293,7 @@
 						if (f === 'a' || f === 'e' || f === 'i' || f === 'o'){
 							article += "n";
 						}
-						fates[fates.length-1] = allNames[r] + " se encuenta con " + article + " " + melee[w] + ".";
+						fates[fates.length-1] = allNames[r] + " se encuenta con " + melee[w] + ".";
 						playerItems[r][playerItems[r].length-1] = melee[w];
 					}
 					playerOrder.push(r);
@@ -318,7 +318,7 @@
 							if (f === 'a' || f === 'e' || f === 'i' || f === 'o'){
 								article += "n";
 							}
-							fates.push(allNames[r] + " encuentra " + article + " " + itemsToFind[q] + " por el suelo.");
+							fates.push(allNames[r] + " encuentra " + itemsToFind[q] + " por el suelo.");
 						}
 						playerOrder.push(r);
 						break;
@@ -334,10 +334,10 @@
 							fates.push(allNames[r] + " recibe un solo espagueti de un patrocinador.");	
 						}
 						else {
-							fates.push(allNames[r] + " recibe " + article + " " + sponsor[q] + " de un patrocinador");
+							fates.push(allNames[r] + " recibe " + sponsor[q] + " de un patrocinador");
 						}
 						playerItems[r].push(sponsor[q]);
-						if (sponsor[q] === "empty box"){
+						if (sponsor[q] === "una caja vacía"){
 							fates[fates.length-1] += ", porque aparentemente el patrocinador es gilipollas.";
 							playerItems[r].pop();
 						}
@@ -369,7 +369,7 @@
 							var q = liveChampion(r);
 							var fate = rand(2);
 							if (a === "melee" && fate === 0){
-								fates.push(allNames[r] + " " + b + " " + allNames[q] + " con un " + aMelee + ".");
+								fates.push(allNames[r] + " " + b + " " + allNames[q] + " con " + aMelee + ".");
 								xKillsY(r,q);
 								done[q] = true;
 								summary.push(fates[fates.length-1]);
@@ -379,12 +379,12 @@
 								injureTwo(r,q);
 								if (!deathBools[q]){
 									done[q] = true;
-									fates.push(allNames[r] + " " + b + " " + allNames[q] + " con un " + aMelee + ".");
+									fates.push(allNames[r] + " " + b + " " + allNames[q] + " con " + aMelee + ".");
 									summary.push(fates[fates.length-1]);
 									playerOrder.push(q);
 								}
 								else {
-									fates.push(allNames[r] + " casi mata a " + allNames[q] + " con un " + aMelee + ".");
+									fates.push(allNames[r] + " casi mata a " + allNames[q] + " con " + aMelee + ".");
 									playerOrder.push(q);
 								}
 							}
@@ -415,19 +415,19 @@
 										xDies(r);
 									}
 								}
-								else if (a === "frisbee"){
+								else if (a === "un frisbee"){
 									fates.push(allNames[r] + " decapita a " + allNames[q] + " con un frisbee.");
 									xKillsY(r,q);
 									done[q] = true;
 									playerOrder.push(q);
 								}
-								else if (a === "octobrush"){
+								else if (a === "un octobrush"){
 									fates.push(allNames[r] + " splatea a " + allNames[q] + " con un octobrush.");
 									xKillsY(r,q);
 									done[q] = true;
 									playerOrder.push(q);
 								}
-								else if (a === "paintball"){
+								else if (a === "un paintball"){
 									fates.push(allNames[r] + " " + b + " " + allNames[q] + " muere por falta de paintballs.");
 									xKillsY(r,q);
 									done[q] = true;
@@ -443,7 +443,7 @@
 							}
 							else if (fate === 1){
 								var q = liveChampion(r);
-								if (a === "frisbee"){
+								if (a === "un frisbee"){
 									injureTwo(r,q);
 									playerOrder.push(q);
 									if (!deathBools[q]){
@@ -455,7 +455,7 @@
 										fates.push(allNames[r] + " le rompe la nariz a " + allNames[q] + " con un frisbee.");
 									}
 								}
-								else if (a === "tank"){
+								else if (a === "tanque"){
 									injureTwo(r,q);
 									playerOrder.push(q);
 									if (!deathBools[q]){
@@ -482,7 +482,7 @@
 							}
 						}
 						else if (a === "House of the Seven Gables"){
-							fates.push("The roof falls on " + allNames[r] + ".");
+							fates.push("El techo cae encima de " + allNames[r] + ".");
 							xDies(r);
 							summary.push(fates[fates.length-1]);
 						}
@@ -492,34 +492,34 @@
 							xDies(r);
 							summary.push(fates[fates.length-1]);
 						}
-						else if (a === "indescribable object"){
+						else if (a === "un objeto indescriptible"){
 							var temp = rand(3);
 							if (temp === 0){
-								fates.push(allNames[r] + "\'s indescribable object explodes in a shower of glorious communism, killing " + pro[r] + ".");
+								fates.push("El objeto indescriptible de " + allNames[r] + " explota en una ducha de glorioso comunismo, matándole.");
 								xDies(r);
 								summary.push(fates[fates.length-1]);
 							}
 							else if (temp === 1){
-								fates.push(allNames[r] + " throws " + proPos[r] + " indescribable object, which quickly disintegrates " + allNames[q] + ".");
+								fates.push(allNames[r] + " lanza su objeto indescriptible, que rápidamente desintegra a " + allNames[q] + ".");
 								xKillsY(r,q);
 								done[q] = true;
 								summary.push(fates[fates.length-1]);
 								playerOrder.push(q);
 							}
 							else {
-								fates.push(allNames[r] + "\'s indescribable object sits there uselessly, so " + allNames[r] + " pollutes the ocean with it.");
+								fates.push("El objeto indescriptible de " + allNames[r] + " se queda sin usar, así que " + allNames[r] + " lo tira al mar.");
 								playerOrder.push(q);
 							}
 						}
-						else if (a === "chocolate-covered cotton"){
+						else if (a === "algodón cubierto de chocolate con almendras"){
 							injureOne(r);
 							if (!deathBools[r]){
-								fates.push(allNames[r] + " gets terminal constipation from chocolate-covered cotton and dies.");
+								fates.push(allNames[r] + " muere al comer algodón cubierto de chocolate.");
 								xDies(r);
 								summary.push(fates[fates.length-1]);
 							}
 							else {
-								fates.push(allNames[r] + " gets indigestion from eating too much chocolate-covered cotton.");
+								fates.push("A " + allNames[r] + " le entra indigestión al comer demasiado algodón cubierto de chocolate.");
 							}
 						}
 						else if (a === "Agrawal star"){
@@ -530,29 +530,29 @@
 							xKillsY(r,q);
 							playerOrder.push(q);
 						}
-						else if (a === "freeze ray"){
+						else if (a === "un rayo congelante"){
 							var q = liveChampion(r);
 							injureTwo(r,q);
 							playerOrder.push(q);
 							if (!deathBools[q]){
-								fates.push(allNames[q] + " contracts hypothermia after being shot by " + allNames[r] + "\'s freeze ray and freezes to death.");
+								fates.push(allNames[q] + " contrae hipotermia al ser víctima del rayo congelante de " + allNames[r] + ".");
 								done[q] = true;
 								summary.push(fates[fates.length-1]);
 							}
 							else {
-								fates.push(allNames[r] + " freezes " + allNames[q] + " with a freeze ray.");
+								fates.push(allNames[r] + " congela a " + allNames[q] + " con un rayo congelante.");
 							}
 						}
 						else if (a === "Lapras"){
 							var q = liveChampion(r);
-							fates.push(allNames[r] + " used Lapras against " + allNames[q] + ". " + allNames[q] + " fainted and subsequently died. It was super effective.");
+							fates.push(allNames[r] + " uso un Lapras contra " + allNames[q] + ". " + allNames[q] + " se desmayó y murió. Fue super efectivo.");
 							xKillsY(r,q);
 							summary.push(fates[fates.length-1]);
 							done[q] = true;
 						}
 						else if (a === "Stalin mustache"){
 							var q = liveChampion(r);
-							fates.push(allNames[r] + " sends " + allNames[q] + " to the gulag.");
+							fates.push(allNames[r] + " manda a " + allNames[q] + " al gulag.");
 							xKillsY(r,q);
 							summary.push(fates[fates.length-1]);
 							done[q] = true;
@@ -568,16 +568,16 @@
 							else if (y === "random chicken"){
 								var x = rand(2);
 								if (x === 0){
-									fates.push(allNames[r] + " eats Ohio Fried Chicken.");
+									fates.push(allNames[r] + " come Ohio Fried Chicken.");
 								}
 								else if (x === 1){
 									injureOne(r);
 									if (!deathBools[r]){
-										fates.push(allNames[r] + " dies of overeating Ohio Fried Chicken.");
+										fates.push(allNames[r] + " muere por demasiado Ohio Fried Chicken.");
 										summary.push(fates[fates.length-1]);
 									}
 									else {
-										fates.push(allNames[r] + " goes into a food coma from too much Ohio Fried Chicken.");
+										fates.push(allNames[r] + " entra en un coma por tomar demasiado Ohio Fried Chicken.");
 									}
 								}
 							}
@@ -585,17 +585,17 @@
 								var aa = rand(2);
 								if (aa === 0){
 									pleaseHeal(r);
-									fates.push(allNames[r] + " gains one health point after using a used Band-Aid.");
+									fates.push(allNames[r] + " adquiere un punto de vida al usar una tirita usada.");
 								}
 								else {
-									fates.push(allNames[r] + " gets tetanus from a used Band-Aid and dies.");
+									fates.push(allNames[r] + " adquiere tetanus de una tirita usada y muere.");
 									xDies(r);
 									summary.push(fates[fates.length-1]);
 								}
 							}
 							else if (y === "safe dating"){
 								var q = liveChampion(r);
-								fates.push(allNames[r] + " and " + allNames[q] + " practice safe dating.");
+								fates.push(allNames[r] + " y " + allNames[q] + " se acuestan con protección.");
 								health[r]++;
 								health[q]++;
 								playerOrder.push(q);
@@ -612,34 +612,31 @@
 					playerOrder.push(r);
 					var a = shelter[rand(shelter.length)];
 					var b = rand(2);
-					fates.push(allNames[r] + " finds a convenient " + a);
-					if (b === 0 && a === "House of the Seven Gables"){
+					fates.push(allNames[r] + " llega a" + a);
+					if (b === 0 && a === "una casa en el barrio de las 3000 viviendas de Sevilla"){
 						playerItems[r].push(a);
 					}
 					if (b === 0){
-						fates[fates.length-1] += " and decides to use it as shelter.";
+						fates[fates.length-1] += " y decide quedarse	 de refigio.";
 					}
 					else if (b === 1){
-						fates[fates.length-1] += ", but decides it is too dangerous.";
+						fates[fates.length-1] += ", pero decide que es muy peligroso.";
 					}
 					break;
 				case "misc":
 					var a = misc[rand(minum)];
 					var q = liveChampion(r);
 					playerOrder.push(r);
-					if (a === "cries"){
-						fates.push(allNames[r] + " cries " + pro[r] + "self to sleep.");
+					if (a === "llora"){
+						fates.push(allNames[r] + " llora hasta dormir.");
 					}
-					else if (a === "Disney star takes"){
-						fates.push("A " + a + " " + allNames[r] + "\'s money.");
-					}
-					else if (a === "hides from"){
-						fates.push(allNames[r] + " hides from " + allNames[q]);
+					else if (a === "se esconde de"){
+						fates.push(allNames[r] + " se esconde de " + allNames[q]);
 						playerOrder.push(q);
 					}
-					else if (a === "eats"){
+					else if (a === "come"){
 						if (deathBools.indexOf(false) === -1){
-							fates.push(allNames[r] + " eats dirt.");
+							fates.push(allNames[r] + " come tierra.");
 						}
 						else {
 							var d = rand(num);
@@ -651,22 +648,22 @@
 									d++;
 								}
 							}
-							fates.push(allNames[r] + " eats " + allNames[d] + "\'s dead body.");
+							fates.push(allNames[r] + " se come el cadaver de " + allNames[d] + "\.");
 							playerOrder.push(d);
 						}
 					}
-					else if (a === "talks to"){
-						fates.push(allNames[r] + " talks to " + allNames[q] + ".");
+					else if (a === "babla con"){
+						fates.push(allNames[r] + " habla con " + allNames[q] + ".");
 						playerOrder.push(q);
 					}
-					else if (a === "drops a rant against"){
-						fates.push(allNames[r] + " drops a rant about " + allNames[q] + ".");
+					else if (a === "se desahoga con"){
+						fates.push(allNames[r] + " se desahoga con " + allNames[q] + ".");
 						playerOrder.push(q);
 					}
 					else if (a === "logs"){
-						fates.push(allNames[r] + " places " + proPos[r] + " head between two inconspicuous suspended logs.");
+						fates.push(allNames[r] + " coloca su cabeza entre dos troncos suspendidos discretos.");
 					}
-					else if (a === "changes genders"){
+					else if (a === "cambia de género"){
 						fates.push(allNames[r] + " " + a + ".");
 						if (pro[r] === "him"){
 							pro[r] = "her";
@@ -701,34 +698,34 @@
 							fates[fates.length-1] += ".";
 						}
 					}
-					else if (a === "battles and wounds"){
+					else if (a === "batallas y heridas"){
 						var q = liveChampion(r);
 						injureTwo(r,q);
 						playerOrder.push(q);
 						if (!deathBools[q]){
-							fates.push(allNames[r] + " battles and kills " + allNames[q] + ".");
+							fates.push(allNames[r] + " mata a " + allNames[q] + " en batalla.");
 							summary.push(fates[fates.length-1]);
 						}
 						else {
-							fates.push(allNames[r] + " battles and wounds " + allNames[q] + ".");
+							fates.push(allNames[r] + " hiere a " + allNames[q] + " en batalla.");
 						}
 					}
-					else if (a === "prank calls"){
+					else if (a === "hace bromas telefónicas"){
 						var q = liveChampion(r);
 						injureTwo(r,q);
 						playerOrder.push(q);
 						if (!deathBools[q]){
-							fates.push(allNames[r] + " fatally prank calls " + allNames[q] + ".");
+							fates.push(allNames[r] + " hace que se muera " + allNames[q] + " por una broma telefónica.");
 							summary.push(fates[fates.length-1]);
 						}
 						else {
-							fates.push(allNames[q] + " gets prank called by " + allNames[r] + ".");
+							fates.push(allNames[q] + " recibe una broma telefónica de " + allNames[r] + ".");
 						}
 					}
 					else {
 						injureOne(r);
 						if (!deathBools[r]){
-							fates.push(allNames[r] + " " + a + " and dies.");
+							fates.push(allNames[r] + " " + a + " y muere.");
 							summary.push(fates[fates.length-1]);
 						}
 						else {
@@ -739,7 +736,7 @@
 				case "heal":
 					if (health[r] === 1){
 						health[r]++;
-						fates.push(allNames[r] + " heals " + pro[r] + "self.");
+						fates.push(allNames[r] + " se cura a sí mismo.");
 						playerOrder.push(r);
 					}
 					else if (health.indexOf(1) === -1){
@@ -748,7 +745,7 @@
 					else {
 						q = liveChampion(r);
 						health[q] = 2;
-						fates.push(allNames[r] + " heals " + allNames[q] + ".");
+						fates.push(allNames[r] + " cura a " + allNames[q] + ".");
 						playerOrder.push(r);
 						playerOrder.push(q);
 					}
@@ -759,27 +756,27 @@
 					console.log("death");
 					console.log(a);
 					var q = liveChampion(r);
-					if (a === "breaks"){
-						fates.push(allNames[r] + " " + a + " " + allNames[q] + "\'s neck.");
+					if (a === "rompe"){
+						fates.push(allNames[r] + " " + a + " el cuello de " + allNames[q] + ".");
 						summary.push(fates[fates.length-1]);
 						done[q] = true;
 						xKillsY(r,q);
 						playerOrder.push(q);
 					}
-					else if (a === "gets burned to death from"){
-						fates.push(allNames[r] + " gets burned to death from " + allNames[q] + "\'s mixtape.");
+					else if (a === "es quedamo hasta morir por"){
+						fates.push(allNames[r] + " es prendido fuego por " + allNames[q] + ".");
 						summary.push(fates[fates.length-1]);
 						xKillsY(q,r);
 						playerOrder.push(q);
 					}
-					else if (a === "hangs"){
-						fates.push(allNames[r] + " hangs " + pro[r] + "self after being friendzoned by " + allNames[q] + ".");
+					else if (a === "se cuelga"){
+						fates.push(allNames[r] + " se cuelga después de ser rechazado por " + allNames[q] + ".");
 						summary.push(fates[fates.length-1]);
 						playerOrder.push(q);
 						xDies(r);
 					}
-					else if (a === "yells \"woag wiag wiag\" at"){
-						fates.push(allNames[r] + " " + a + " " + allNames[q] + ", causing " + allNames[q] + " to drop dead.");
+					else if (a === "grita \"Dojyaaa ~ n\" hacia"){
+						fates.push(allNames[r] + " " + a + " " + allNames[q] + ", causando que " + allNames[q] + " fallezca.");
 						summary.push(fates[fates.length-1]);
 						done[q] = true;
 						xKillsY(r,q);
@@ -790,12 +787,12 @@
 						xDies(r);
 						summary.push(fates[fates.length-1]);
 					}
-					else if (a === "navy seals"){
-						fates.push(allNames[r] + " calls in the US Navy SEALS, who kill " + allNames[q]);
+					else if (a === "acabado por la marina de guerra"){
+						fates.push(allNames[r] + " llama a los marines, que matan a " + allNames[q]);
 						playerOrder.push(q);
 						s = liveChampion(r);
 						if (s != q){
-							fates[fates.length-1] += " and " + allNames[s];
+							fates[fates.length-1] += " y a " + allNames[s];
 							done[s] = true;
 							xKillsY(r,s);
 							playerOrder.push(s);
@@ -808,19 +805,19 @@
 						done[q] = true;
 						xKillsY(r,q);
 					}
-					else if (a === "coat hanger"){
-						fates.push(allNames[r] + " gets beat to death by " + proPos[r] + " mother\'s coat hanger.");
+					else if (a === "se cuelga como si fuese un perchero"){
+						fates.push(allNames[r] + " es golpeado a muerte por el perchero de su madre.");
 						xDies(r);
 						summary.push(fates[fates.length-1]);
 					}
 					else if (a === "stream"){
-						fates.push(allNames[r] + " said racial slurs on a Twitch livestream and got roasted to death.")
+						fates.push(allNames[r] + " dijo racistadas por Twitch y lo funaron hasta la muerte.")
 					}
 					else if (a === "unsafe dating"){
 						var lol = playerItems[r].indexOf("pack of condoms");
 						var lol2 = playerItems[q].indexOf("pack of condoms");
 						if (lol != -1 || lol2 != -1){
-							fates.push(allNames[r] + " and " + allNames[q] + " practice safe dating.");
+							fates.push(allNames[r] + " y " + allNames[q] + " se acuestan con protección");
 							if (lol != -1){
 								for (var i=lol; i<playerItems[r].length-1; i++){
 									playerItems[r][i] = playerItems[r][i+1];
@@ -835,7 +832,7 @@
 							}
 						}
 						else {
-							fates.push(allNames[r] + " and " + allNames[q] + " die of AIDS after practicing unsafe dating.");
+							fates.push(allNames[r] + " y " + allNames[q] + " mueren por sida después de hacerlo sin preservativo.");
 							deathBools[r] = false;
 							deathBools[q] = false;
 							done[q] = true;
@@ -847,7 +844,7 @@
 						playerOrder.push(q);
 					}
 					else if (doubleDeath.indexOf(a) != -1){
-						if (a === "gets nuked from orbit by" || a === "gets memed to death by" || a === "succumbs to lethal peer pressure from"){
+						if (a === "gets nuked from orbit by" || a === "gets memed to death by" || a === "sucumbe a la letal presión de"){
 							fates.push(allNames[q] + " " + a + " " + allNames[r] + ".");
 						}
 						else {
@@ -929,7 +926,7 @@
 
 			switch(cornucopia[rand(cnum)]){
 				case "run":
-					fates.push(allNames[r] + " runs away from the Cornucopia.");
+					fates.push(allNames[r] + " huye de la Cornucopia.");
 					playerOrder.push(r);
 					break;
 				case "supply":
@@ -938,7 +935,7 @@
 					if (vowels.indexOf(itemsToFind[z].charAt(0)) != -1){
 						article += "n";
 					}
-					fates.push(allNames[r] + " finds " + article + " " + itemsToFind[z] + " in the Cornucopia.");
+					fates.push(allNames[r] + " encuentra " + article + " " + itemsToFind[z] + " en la Cornucopia.");
 					playerItems[r].push(itemsToFind[z]);
 					playerOrder.push(r);
 					break;
@@ -948,18 +945,18 @@
 					if (vowels.indexOf(weapons[z].charAt(0)) != -1){
 						article += "n";
 					}
-					fates.push(allNames[r] + " finds " + article + " " + weapons[z] + " in the Cornucopia.");
+					fates.push(allNames[r] + " encuentra " + " " + weapons[z] + " en la Cornucopia.");
 					playerItems[r].push(weapons[z]);
 					if (fates[fates.length-1].indexOf("melee") > 0){
 						z = rand(mnum);
-						fates[fates.length-1] = allNames[r] + " finds a " + melee[z] + " in the Cornucopia.";
+						fates[fates.length-1] = allNames[r] + " encuentra " + melee[z] + " en la Cornucopia.";
 						playerItems[r][playerItems[r].length-1] = melee[z];
 					}
 					playerOrder.push(r);
 					break;
 				case "battle":
 					if (notDone === 0){
-						fates.push(allNames[r] + " runs away from the Cornucopia.");
+						fates.push(allNames[r] + " huye de la Cornucopia.");
 						playerOrder.push(r);
 						break;
 					}
