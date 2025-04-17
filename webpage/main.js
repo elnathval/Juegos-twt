@@ -545,7 +545,7 @@
 						}
 						else if (a === "Lapras"){
 							var q = liveChampion(r);
-							fates.push(allNames[r] + " uso un Lapras contra " + allNames[q] + ". " + allNames[q] + " se desmayó y murió. Fue super efectivo.");
+							fates.push(allNames[r] + " usó un Lapras contra " + allNames[q] + ". " + allNames[q] + " se desmayó y murió. Fue super efectivo.");
 							xKillsY(r,q);
 							summary.push(fates[fates.length-1]);
 							done[q] = true;
@@ -612,7 +612,7 @@
 					playerOrder.push(r);
 					var a = shelter[rand(shelter.length)];
 					var b = rand(2);
-					fates.push(allNames[r] + " llega a" + a);
+					fates.push(allNames[r] + " llega a " + a);
 					if (b === 0 && a === "una casa en el barrio de las 3000 viviendas de Sevilla"){
 						playerItems[r].push(a);
 					}
@@ -1145,7 +1145,7 @@
 		}
 		var h = document.createElement("h3");
 		var ach = document.createElement("p");
-		h.appendChild(document.createTextNode(allNames[deathBools.indexOf(true)] + " is the champion!"));
+		h.appendChild(document.createTextNode(allNames[deathBools.indexOf(true)] + " ganó esta edición!"));
 		/*if ( kills[deathBools.indexOf(true)] === 0){
 			ach.appendChild(document.createElement("br"));
 			ach.appendChild(document.createTextNode("Achievement Get: Pacifist Run!"));
