@@ -75,6 +75,7 @@
 	};
 
 	function registerNames(){
+		downloadImage("todos los participantes");
 		allNames = [];
 		pro = [];
 		proPos = [];
@@ -122,7 +123,7 @@
 			temp.appendChild(p);
 			temp.id = allNames[i];
 			temp.className = "champion";
-			stats.appendChild(temp);
+			document.getElementById("stats-content").appendChild(temp);
 		}
 		names.style.visibility = "hidden";
 		stats.style.visibility = "visible";
@@ -149,17 +150,20 @@
 		else if (dayCounter === 0){
 			window.electronAPI.update_day("Baño de sangre");
             cornucopiaNow();
+			downloadImage("baño de sangre");
 			dayCounter++;
 		}
 		else if (dayCounter === 1){
 			window.electronAPI.update_day("Dia 1");
             simulateDay();
+			downloadImage("dia 1");
 			dayCounter++;
 		}
 		else {
             window.electronAPI.update_day(`Dia ${dayCounter}`);
 			dayClear();
 			simulateDay();
+			downloadImage(`dia ${dayCounter}`);
 			dayCounter++;
 		}
 	}
@@ -201,6 +205,7 @@
 		deaths.style.visibility = "visible";
 
 		window.electronAPI.update_playercount(`${playersAliveCount}`);
+		downloadImage(`muertos ${dayCounter}`);
 	}
 
 	function toStats(){
@@ -1212,7 +1217,7 @@
 		finalSum.style.visibility = "hidden";
 
 		for (var i=0; i<num; i++){
-			stats.removeChild(stats.children[stats.childElementCount-1]);
+			document.getElementByID("stats-content").removeChild(document.getElementByID("stats-content").children[sdocument.getElementByID("stats-content").childElementCount-1]);
 		}
 		corn.removeChild(corn.children[corn.childElementCount-1]);
 

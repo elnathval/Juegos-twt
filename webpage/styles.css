@@ -209,3 +209,11 @@ img {
 .dead {
 	filter: grayscale(100%);
 }
+
+.hide {
+	visibility: hidden;
+}
+
+.champion{
+	padding: 20px;
+}
