@@ -13,3 +13,6 @@ Para ejecutar hace falta correr `npm run start`
 
 ## Cómo poner imágenes
 En `./webpage/img/`, hace falta poner las imágenes (en formato .jpg) en el orden en que estarán los participantes.
+
+## Modo sin capturas de pantalla
+Por defecto, la aplicación tiene activado el modo con capturas de pantalla. Para desactivarlo, solamente hace falta cambiar el valor de `screenshot-mode` en el archivo `mode.txt`.

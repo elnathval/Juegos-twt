@@ -28,7 +28,8 @@
 
     var playersAliveCount = 0;
 	var playernames = "";
-
+	var mode = "";
+	var modetxt = "";
 
 	var pro = [];
 	var playerItems = [];
@@ -36,6 +37,7 @@
 
 	var onClick = async function(){
 		playernames = await window.electronAPI.leerArchivo("./playernames.txt");
+		mode = await window.electronAPI.leerArchivo("./mode.txt");
 		names.style.visibility = "visible";
 		mult = wow.checked;
 		num = document.getElementById("wow").value;
@@ -88,6 +90,7 @@
 		
 
 		var playernamesplit = playernames.contenido.split(",");
+		modetxt = mode.contenido.split("=");
 
 		for (var i=0; i<num; i++){
 			allNames.push(playernamesplit[i]);
@@ -136,7 +139,11 @@
 		stats.style.visibility = "visible";
 
 		window.electronAPI.update_playercount(`${playersAliveCount}`);
-		downloadImage("todos los participantes");
+		
+		if(modetxt[1] === "true"){
+			downloadImage("todos los participantes");
+		}
+		
 	}
 
 	function deadHighlight(){
@@ -158,20 +165,26 @@
 		else if (dayCounter === 0){
 			window.electronAPI.update_day("Baño de sangre");
             cornucopiaNow();
-			downloadImage("baño de sangre");
+			if(modetxt[1] === "true"){
+				downloadImage("baño de sangre");
+			}
 			dayCounter++;
 		}
 		else if (dayCounter === 1){
 			window.electronAPI.update_day("Dia 1");
             simulateDay();
-			downloadImage("dia 1");
+			if(modetxt[1] === "true"){
+				downloadImage("dia 1");
+			}
 			dayCounter++;
 		}
 		else {
             window.electronAPI.update_day(`Dia ${dayCounter}`);
 			dayClear();
 			simulateDay();
-			downloadImage(`dia ${dayCounter}`);
+			if(modetxt[1] === "true"){
+				downloadImage(`dia ${dayCounter}`);	
+			}
 			dayCounter++;
 		}
 	}
@@ -213,7 +226,10 @@
 		deaths.style.visibility = "visible";
 
 		window.electronAPI.update_playercount(`${playersAliveCount}`);
-		downloadImage(`muertos ${dayCounter}`);
+		if(modetxt === "true"){
+			downloadImage(`muertos ${dayCounter}`);
+		}
+		
 	}
 
 	function toStats(){
