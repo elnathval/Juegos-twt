@@ -42,3 +42,13 @@ ipcMain.on('update-day', (event, data) => {
 ipcMain.on("debug-msg", (event, data) => {
   console.log(data);
 });
+
+ipcMain.handle('leer-archivo', async (event, filePath) => {
+  try {
+    const contenido = fs.readFileSync(filePath, 'utf-8');
+    return { success: true, contenido };
+  } catch (error) {
+    console.error('Error al leer archivo:', error);
+    return { success: false, error: error.message };
+  }
+});

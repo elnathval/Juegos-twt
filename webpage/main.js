@@ -27,12 +27,15 @@
 	var minum = misc.length;
 
     var playersAliveCount = 0;
+	var playernames = "";
+
 
 	var pro = [];
 	var playerItems = [];
 	var health = [];
 
-	var onClick = function(){
+	var onClick = async function(){
+		playernames = await window.electronAPI.leerArchivo("./playernames.txt");
 		names.style.visibility = "visible";
 		mult = wow.checked;
 		num = document.getElementById("wow").value;
@@ -75,15 +78,19 @@
 	};
 
 	function registerNames(){
-		downloadImage("todos los participantes");
+		
 		allNames = [];
 		pro = [];
 		proPos = [];
 		var fields = document.getElementsByClassName("newNames");
 		var wowselect = document.getElementsByClassName("wowselect");
 
+		
+
+		var playernamesplit = playernames.contenido.split(",");
+
 		for (var i=0; i<num; i++){
-			allNames.push(fields[i].value);
+			allNames.push(playernamesplit[i]);
 			pro.push("him");
 			/*if (wowselect[i].value === "him"){
 				proPos.push("his");
@@ -129,6 +136,7 @@
 		stats.style.visibility = "visible";
 
 		window.electronAPI.update_playercount(`${playersAliveCount}`);
+		downloadImage("todos los participantes");
 	}
 
 	function deadHighlight(){
