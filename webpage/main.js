@@ -638,12 +638,12 @@
 					playerOrder.push(r);
 					var a = shelter[rand(shelter.length)];
 					var b = rand(2);
-					fates.push(allNames[r] + " llega a" + a);
+					fates.push(allNames[r] + " llega a " + a);
 					if (b === 0 && a === "una casa en el barrio de las 3000 viviendas de Sevilla"){
 						playerItems[r].push(a);
 					}
 					if (b === 0){
-						fates[fates.length-1] += " y decide quedarse	 de refigio.";
+						fates[fates.length-1] += " y decide quedarse como refugio.";
 					}
 					else if (b === 1){
 						fates[fates.length-1] += ", pero decide que es muy peligroso.";
@@ -678,7 +678,7 @@
 							playerOrder.push(d);
 						}
 					}
-					else if (a === "babla con"){
+					else if (a === "habla con"){
 						fates.push(allNames[r] + " habla con " + allNames[q] + ".");
 						playerOrder.push(q);
 					}
@@ -961,7 +961,7 @@
 					if (vowels.indexOf(itemsToFind[z].charAt(0)) != -1){
 						article += "n";
 					}
-					fates.push(allNames[r] + " encuentra " + article + " " + itemsToFind[z] + " en la Cornucopia.");
+					fates.push(allNames[r] + " encuentra " + " " + itemsToFind[z] + " en la Cornucopia.");
 					playerItems[r].push(itemsToFind[z]);
 					playerOrder.push(r);
 					break;

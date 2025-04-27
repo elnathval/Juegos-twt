@@ -1,1 +1,1 @@
-screenshot-mode=false
+screenshot-mode=true

@@ -78,7 +78,7 @@ var itemsThatGivePoints = [
 var causeAndEffect =
 ["un árbol de frutas",
 "come frutas y gana un punto de fuerza",
-"un árbol de frutas venenosas",
+"un árbol de fruta venenosas",
 "se come una fruta venenosa",
 "agua limpia",
 "bebe agua limpia y gana un punto en constitución",
