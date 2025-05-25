@@ -1,6 +1,8 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
 const fs = require("fs")
 const path = require("path")
+const ImageSlicer = require('image-slicer');    // classic nodejs require
+const { event } = require('jquery');
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -51,4 +53,8 @@ ipcMain.handle('leer-archivo', async (event, filePath) => {
     console.error('Error al leer archivo:', error);
     return { success: false, error: error.message };
   }
+});
+
+ipcMain.on("split", (event, data) => {
+  ImageSlicer.slice("C:\\Users\\Nathan\\Downloads\\juegos-twt-screenshots\\" + data, ['.png'], 784, 550, "data");
 });

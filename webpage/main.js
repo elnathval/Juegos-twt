@@ -28,7 +28,8 @@
 
     var playersAliveCount = 0;
 	var playernames = "";
-
+	var mode = "";
+	var modetxt = "";
 
 	var pro = [];
 	var playerItems = [];
@@ -36,6 +37,7 @@
 
 	var onClick = async function(){
 		playernames = await window.electronAPI.leerArchivo("./playernames.txt");
+		mode = await window.electronAPI.leerArchivo("./mode.txt");
 		names.style.visibility = "visible";
 		mult = wow.checked;
 		num = document.getElementById("wow").value;
@@ -88,6 +90,7 @@
 		
 
 		var playernamesplit = playernames.contenido.split(",");
+		modetxt = mode.contenido.split("=");
 
 		for (var i=0; i<num; i++){
 			allNames.push(playernamesplit[i]);
@@ -136,7 +139,11 @@
 		stats.style.visibility = "visible";
 
 		window.electronAPI.update_playercount(`${playersAliveCount}`);
-		downloadImage("todos los participantes");
+		
+		if(modetxt[1] === "true"){
+			downloadImage("todos los participantes");
+		}
+		
 	}
 
 	function deadHighlight(){
@@ -158,20 +165,26 @@
 		else if (dayCounter === 0){
 			window.electronAPI.update_day("Baño de sangre");
             cornucopiaNow();
-			downloadImage("baño de sangre");
+			if(modetxt[1] === "true"){
+				downloadImage("baño de sangre");
+			}
 			dayCounter++;
 		}
 		else if (dayCounter === 1){
 			window.electronAPI.update_day("Dia 1");
             simulateDay();
-			downloadImage("dia 1");
+			if(modetxt[1] === "true"){
+				downloadImage("dia 1");
+			}
 			dayCounter++;
 		}
 		else {
             window.electronAPI.update_day(`Dia ${dayCounter}`);
 			dayClear();
 			simulateDay();
-			downloadImage(`dia ${dayCounter}`);
+			if(modetxt[1] === "true"){
+				downloadImage(`dia ${dayCounter}`);	
+			}
 			dayCounter++;
 		}
 	}
@@ -213,7 +226,10 @@
 		deaths.style.visibility = "visible";
 
 		window.electronAPI.update_playercount(`${playersAliveCount}`);
-		downloadImage(`muertos ${dayCounter}`);
+		if(modetxt === "true"){
+			downloadImage(`muertos ${dayCounter}`);
+		}
+		
 	}
 
 	function toStats(){
@@ -622,12 +638,12 @@
 					playerOrder.push(r);
 					var a = shelter[rand(shelter.length)];
 					var b = rand(2);
-					fates.push(allNames[r] + " llega a" + a);
+					fates.push(allNames[r] + " llega a " + a);
 					if (b === 0 && a === "una casa en el barrio de las 3000 viviendas de Sevilla"){
 						playerItems[r].push(a);
 					}
 					if (b === 0){
-						fates[fates.length-1] += " y decide quedarse	 de refigio.";
+						fates[fates.length-1] += " y decide quedarse como refugio.";
 					}
 					else if (b === 1){
 						fates[fates.length-1] += ", pero decide que es muy peligroso.";
@@ -662,7 +678,7 @@
 							playerOrder.push(d);
 						}
 					}
-					else if (a === "babla con"){
+					else if (a === "habla con"){
 						fates.push(allNames[r] + " habla con " + allNames[q] + ".");
 						playerOrder.push(q);
 					}
@@ -901,6 +917,8 @@
             temp.appendChild(par);
 		}
 
+		temp.classList.add("paddingbottom");
+
 		day.appendChild(temp);
 		day.style.visibility = "visible";
 		stats.style.visibility = "hidden";
@@ -945,7 +963,7 @@
 					if (vowels.indexOf(itemsToFind[z].charAt(0)) != -1){
 						article += "n";
 					}
-					fates.push(allNames[r] + " encuentra " + article + " " + itemsToFind[z] + " en la Cornucopia.");
+					fates.push(allNames[r] + " encuentra " + " " + itemsToFind[z] + " en la Cornucopia.");
 					playerItems[r].push(itemsToFind[z]);
 					playerOrder.push(r);
 					break;
@@ -1023,6 +1041,8 @@
 			par.appendChild(document.createElement("br"));
             temp.appendChild(par);
 		}
+
+		temp.classList.add("paddingbottom");
 
 		corn.appendChild(temp);
 		stats.style.visibility = "hidden";
@@ -1155,7 +1175,8 @@
 		}
 		var h = document.createElement("h3");
 		var ach = document.createElement("p");
-		h.appendChild(document.createTextNode(allNames[deathBools.indexOf(true)] + " is the champion!"));
+		h.appendChild(document.createTextNode(allNames[deathBools.indexOf(true)] + " es el/la ganador/a!"));
+		h.appendChild(document.createTextNode("Ahora puedes jugar como Luigi!"));
 		/*if ( kills[deathBools.indexOf(true)] === 0){
 			ach.appendChild(document.createElement("br"));
 			ach.appendChild(document.createTextNode("Achievement Get: Pacifist Run!"));

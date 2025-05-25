@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "bootstrap": "^5.3.5",
+    "image-slicer": "^1.1.0",
     "jquery": "^3.7.1"
   }
 }

@@ -7,6 +7,10 @@ html, body {
 	background-color:#5d5050;
 }
 
+.paddingbottom {
+	padding-bottom: 550px;
+}
+
 input[type=text] {
 	border: none;
 	border-bottom: 2px solid #ffa705;

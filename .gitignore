@@ -139,4 +139,6 @@ dist
 playercount.txt
 day.txt
 
-.jpg
+*.jpg
+
+*.jpg

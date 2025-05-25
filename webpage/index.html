@@ -37,7 +37,7 @@
 <div id="stats">
 <div class="header"><h1 class="title">Los jugadores</h1></div>
 <button id="proceedOne" type="button" class="button"><span>Siguiente</span></button>
-<div id="stats-content" style="display: flex; flex-wrap: wrap; justify-content: center;"></div>
+<div id="stats-content" class="paddingbottom" style="display: flex; flex-wrap: wrap; justify-content: center;"></div>
 </div>
 
 <div id="day">
@@ -74,7 +74,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="main.js"></script>
 <script>
+	var last = "";
 	async function downloadImage(name) {
+		window.electronAPI.split(last);
+		last = name;
 		var buttons = document.getElementsByClassName("button");
 
 		for(i = 0; i < buttons.length; i++){
@@ -102,6 +105,8 @@
 		for(i = 0; i < buttons.length; i++){
 			buttons[i].classList.remove("hide");
 		}
+
+		
 	}
 </script>
 </body>
