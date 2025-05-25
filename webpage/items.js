@@ -253,7 +253,8 @@ var misc =
 "encuentra a Chuck Norris",
 "rollos de barril",
 "encuentra a Dory",
-"encuentra a Nemo"];
+"encuentra a Nemo",
+"se siente muy Bandu"];
 
 var injury =
 ["se resfría",
@@ -275,7 +276,7 @@ var injury =
 "se resbala y se desliza por la cáscara de plátano",
 "tiene linfoma",
 "tiene una infección en la vejiga",
-"una tribu nativa de la zona le quita las uñas",
+"es herido cuando una tribu nativa de la zona le quita las uñas",
 "tiene un devastador hipo",
 "tiene fiebre amarilla",
 "esta obligado a convivir con abejas",
@@ -287,7 +288,7 @@ var injury =
 "es obligado a obedecer ante un mentor"];
 
 var injEffect =
-["arco",
+["dispara a",
 "lesion",
 "pelea",
 "paintball",

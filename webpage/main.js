@@ -917,6 +917,8 @@
             temp.appendChild(par);
 		}
 
+		temp.classList.add("paddingbottom");
+
 		day.appendChild(temp);
 		day.style.visibility = "visible";
 		stats.style.visibility = "hidden";
@@ -1039,6 +1041,8 @@
 			par.appendChild(document.createElement("br"));
             temp.appendChild(par);
 		}
+
+		temp.classList.add("paddingbottom");
 
 		corn.appendChild(temp);
 		stats.style.visibility = "hidden";
@@ -1171,7 +1175,8 @@
 		}
 		var h = document.createElement("h3");
 		var ach = document.createElement("p");
-		h.appendChild(document.createTextNode(allNames[deathBools.indexOf(true)] + " is the champion!"));
+		h.appendChild(document.createTextNode(allNames[deathBools.indexOf(true)] + " es el/la ganador/a!"));
+		h.appendChild(document.createTextNode("Ahora puedes jugar como Luigi!"));
 		/*if ( kills[deathBools.indexOf(true)] === 0){
 			ach.appendChild(document.createElement("br"));
 			ach.appendChild(document.createTextNode("Achievement Get: Pacifist Run!"));
