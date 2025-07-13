@@ -90,7 +90,7 @@
 		
 
 		var playernamesplit = playernames.contenido.split(",");
-		modetxt = mode.contenido.split("=");
+		modetxt = mode.contenido.split("=").join(",").split("\r\n").join(",").split(",");
 
 		for (var i=0; i<num; i++){
 			allNames.push(playernamesplit[i]);
@@ -140,6 +140,8 @@
 
 		window.electronAPI.update_playercount(`${playersAliveCount}`);
 		
+		console.log(modetxt[1]);
+
 		if(modetxt[1] === "true"){
 			downloadImage("todos los participantes");
 		}

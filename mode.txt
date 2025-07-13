@@ -1,1 +1,2 @@
 screenshot-mode=true
+screenshot-location=C:/Users/Nathan/Downloads/juegos-twt-screenshots/

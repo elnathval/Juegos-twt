@@ -56,5 +56,13 @@ ipcMain.handle('leer-archivo', async (event, filePath) => {
 });
 
 ipcMain.on("split", (event, data) => {
-  ImageSlicer.slice("C:\\Users\\Nathan\\Downloads\\juegos-twt-screenshots\\" + data, ['.png'], 784, 550, "data");
+  var contenido;
+  try {
+    contenido = fs.readFileSync("./mode.txt", 'utf-8');
+    
+  } catch {
+    console.error('Error al leer archivo:', error);
+  }
+  var path = contenido.split("=").join(",").split("\r\n").join(",").split(",")[3];
+  ImageSlicer.slice(path + data, ['.png'], 784, 550, "data");
 });
